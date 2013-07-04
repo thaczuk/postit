@@ -52,3 +52,21 @@ rake db:migrate
 check post table in db
 
 2. Now, we can declare the associations in the models.
+
+Post belongs_to :user
+User has_many :posts
+
+==Verify in console
+
+From the rails console, verify that your associations are set up correctly.
+1. Create some data to populate the posts and users tables.
+2. Associate the data by setting the foreign key column in posts table with a user id.
+3. Then, see if you can traverse the association:
+
+Example code:
+post = Post.first
+user = User.first
+post.user_id = user.id
+post.user
+post.user.username
+
