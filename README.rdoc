@@ -70,3 +70,23 @@ post.user_id = user.id
 post.user
 post.user.username
 
+== Comment model
+
+Create a Comment model.
+Note that the Comment model has two associations:
+one with the User model to track who created it
+another with the Post model to track which post this comment is for.
+So you'll need two 1:M associations. Keep this in mind when creating the migration.
+
+rails generate migration create_comments
+
+t.text      :body
+t.integer :user_id
+t.integer :post_id
+
+create comment.rb
+class Comment < ActiveRecord::Base
+end
+
+
+
