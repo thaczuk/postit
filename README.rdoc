@@ -28,3 +28,27 @@
   - heroku run console
   - heroku help
 
+== Here's how to set up the models:
+
+Post Model
+1. First, create a migration to modify the database. In this migration, we want to create the table. Rails migrations are the only place where we want to use generators. Issue this command from the terminal within your project directory: rails generate migration create_posts
+2. Open the newly created migration file in your code editor, and take a look at the migration file. Use the "create_table" method to create the necessary table and columns. We want: a url and title, which should both be strings and a description which should be text.
+3. From the terminal again, issue this command: rake db:migrate (you may need to do rake db:create first, if you're using mysql or postgres). If you're getting a rake error, you can try adding "bundle exec" before the rake command.
+4. Then take a look at your database and see that you have a "posts" table, with three columns: url, title and description.
+5. Create a Post model file: under app/models directory, create a post.rb file put "class Post < ActiveRecord::Base; end"
+6. Open rails console, and create your first Post object: Post.create(title: "My first post", description: "I sure hop this works!", url: "www.yahoo.com"). Verify by looking at your database that this worked.
+
+User Model
+1. Same as the Post model, except the User model should have a username column of type string.
+
+== 1:M between User and Post
+
+It's a two step process:
+1. First, we need to modify the database to create a new foreign key column on the posts table to support the one to many association. Remember, the foreign key column always goes on the 'many' side. Hint: generate a migration file, then use Rails migration syntax to create a new column.
+
+rails generate migration add_user_id_to_posts
+In the migration: add_column :posts, :user_id, :integer
+rake db:migrate
+check post table in db
+
+2. Now, we can declare the associations in the models.
