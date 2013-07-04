@@ -88,5 +88,16 @@ create comment.rb
 class Comment < ActiveRecord::Base
 end
 
+== Comment associations
 
+Set up the two 1:M associations for the Comment model, and verify that everything is wired up correctly in rails console.
 
+post.rb
+has_many :comments
+
+user.rb
+has_many :comments
+
+comment.rb
+belongs_to :post
+belongs_to: user
