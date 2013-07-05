@@ -28,6 +28,8 @@
   - heroku run console
   - heroku help
 
+  http://guarded-woodland-5687.herokuapp.com/
+
 == Here's how to set up the models:
 
 Post Model
@@ -110,3 +112,37 @@ The Category model should only have a name attribute.
 
 Put 'resources :posts' in your routes.rb file. Go into console and do 'rake routes' to verify that all 7 routes are created for your application. Prevent the 'delete' route from being accessed, since we won't have the ability to delete posts in our application.
 
+== M:M between Post and Category
+
+Use has_many through to set up a many to many association between Post and Category models. Note that you'll need a model backed join table to do this. You'll need to 1) modify the database schema, 2) set up the associations in the models. Verify via rails console that this worked, and that you can assign categories to posts, and iterate through a category's posts and vice versa (iterate through a post's categories).
+
+Be very careful with pluralization!!!
+
+rails g migration create_categorizations
+
+class CreateCategorizations < ActiveRecord::Migration
+  def change
+    create_table :categorizations do |t|
+      t.belongs_to :post
+      t.belongs_to :category
+      t.timestamps
+    end
+  end
+end
+
+class Categorization< ActiveRecord::Base
+  belongs_to :category
+  belongs_to :post
+end
+
+class Category < ActiveRecord::Base
+  has_many :posts, through: :categorizations
+  has_many :categorizations
+end
+
+class Post < ActiveRecord::Base
+  belongs_to :user
+  has_many  :comments
+  has_many :categories, through: :categorizations
+  has_many :categorizations
+end
