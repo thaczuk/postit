@@ -101,3 +101,8 @@ has_many :comments
 comment.rb
 belongs_to :post
 belongs_to: user
+
+== Category Model
+
+The Category model should only have a name attribute.
+
