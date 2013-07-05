@@ -106,3 +106,7 @@ belongs_to: user
 
 The Category model should only have a name attribute.
 
+== resources :posts , except: :destroy
+
+Put 'resources :posts' in your routes.rb file. Go into console and do 'rake routes' to verify that all 7 routes are created for your application. Prevent the 'delete' route from being accessed, since we won't have the ability to delete posts in our application.
+
