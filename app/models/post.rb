@@ -3,4 +3,6 @@ class Post < ActiveRecord::Base
   has_many  :comments
   has_many :categories, through: :categorizations
   has_many :categorizations
+
+
 end
