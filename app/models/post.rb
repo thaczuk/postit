@@ -5,5 +5,6 @@ class Post < ActiveRecord::Base
   has_many :categorizations
 
   validates :title, presence: true, length: {minimum: 5 }
+  validates :url, presence: true
 
 end
