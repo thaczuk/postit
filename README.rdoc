@@ -30,6 +30,14 @@
 
   http://guarded-woodland-5687.herokuapp.com/
 
+
+== Useful links
+
+http://api.rubyonrails.org/classes/ActiveRecord/Associations/ClassMethods.html
+http://guides.rubyonrails.org/association_basics.html
+http://guides.rubyonrails.org/routing.html
+http://guides.rubyonrails.org/layouts_and_rendering.html
+
 == Here's how to set up the models:
 
 Post Model
@@ -146,3 +154,14 @@ class Post < ActiveRecord::Base
   has_many :categories, through: :categorizations
   has_many :categorizations
 end
+
+==  Change default association name
+
+In the Post and Comment models, there is a 'belongs_to' association to the User model. We specify 'belongs_to :user', which gives us a nice handy method that gives us a reference to the user (eg, Post.first.user). Change this association name to 'creator' so we have a better idea of the relationship of this association. For example, we want to be able to do this: Post.first.creator to return the user that created the first post object. Hint: you have to override the default Rails assumptions.
+
+def user
+  self.user
+end
+
+This works but this reads better:
+belongs_to :creator, class_name: 'User', foreign_key: :user_id
