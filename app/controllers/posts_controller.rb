@@ -24,7 +24,7 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
-    @comment = Comments.new    # ~1:02 in video
+    @comment = Comment.new    # ~1:02 in video
   end
 
   def update
