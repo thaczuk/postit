@@ -1,20 +1,38 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Title:</strong>
-  <%= @post.title %>
+  <strong>Title:</strong><%= @post.title %>
+</p>
+<p>
+  <strong>Url:</strong><%= @post.url %>
+</p>
+<p>
+  <strong>Description:</strong><%= @post.description %>
 </p>
 
-<p>
-  <strong>Url:</strong>
-  <%= @post.url %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @post.description %>
-</p>
+  <% @post.categories.each do |c| %>
+    <span class='label'><%= c.name  %></span>
+  <% end %>
 
 <%= link_to 'Edit', edit_post_path(@post) %> |
 <%= link_to 'Back', posts_path %>
+<br />
+<br />
+<span class="help-block">Leave a comment</span>
+<%= form_for [@post, @comment] do |f| %>
+  <%= render 'shared/errors', obj: @comment %>
+
+  <!-- <%= f.label :body %> -->
+  <%= f.text_area :body %><br />
+  <%= f.submit "Create comment" %>
+<% end %>
+<h4>Comments:</h4>
+
+<ul class="unstyled">
+  <% @comments.each do |c| %>
+  <div class = "well">
+    <li><%= c.body  %> at <%= c.created_at.strftime("%B %d, %Y @ %H:%M") %></li>
+    </div>
+  <% end %>
+</ul>
 

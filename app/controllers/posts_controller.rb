@@ -24,7 +24,8 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
-    @comment = Comment.new    # ~1:02 in video
+    @comment =  @post.comments.build
+    @comments = Comment.where(post_id: (params[:id]))
   end
 
   def update
