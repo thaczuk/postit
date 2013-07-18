@@ -1,6 +1,5 @@
-<h1>Listing posts</h1>
-
-<table>
+<%= render 'shared/header', header: 'Listing Posts' %>
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Title</th>
@@ -18,8 +17,10 @@
         <td><%= post.title %></td>
         <td><%= post.url %></td>
         <td><%= post.description %></td>
-        <td><%= link_to 'Show', post %></td>
-        <td><%= link_to 'Edit', edit_post_path(post) %></td>
+        <% if  logged_in? %>
+          <td><%= link_to 'Show', post %></td>
+          <td><%= link_to 'Edit', edit_post_path(post) %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

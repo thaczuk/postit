@@ -1,5 +1,8 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update]
+  before_filter :require_user, only: [:new, :create, :edit, :update]
+  before_action :require_creator, only: [:edit, :create]
+
 
   def index
     @posts = Post.all
@@ -7,6 +10,7 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
+    @post.creator = current_user
 
     if @post.save
       redirect_to @post, notice: 'Post was successfully created'
@@ -45,5 +49,9 @@ class PostsController < ApplicationController
     # Never trust parameters from the scary internet
     def post_params
       params.require(:post).permit(:title, :url, :description)
+    end
+
+    def require_creator
+      access_denied unless logged_in? && current_user == @post.creator
     end
 end

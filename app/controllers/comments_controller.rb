@@ -1,4 +1,6 @@
 class CommentsController < ApplicationController
+  before_filter :require_user
+
   def show
   end
 
@@ -8,7 +10,7 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(comment_params)
     @post = Post.find(params[:post_id])
-    @comment.user_id = 1 # How can I set user_id???
+    @comment.user_id = session[:user_id]
     @comment.post = @post
 
     if @comment.save
