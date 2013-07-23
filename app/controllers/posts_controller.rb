@@ -19,8 +19,7 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.creator = current_user
     if @post.save
-      flash[:notice] = "Your post was created."
-      redirect_to posts_path
+      redirect_to posts_path, notice: "Your post was created."
     else
       render :new
     end
@@ -31,11 +30,15 @@ class PostsController < ApplicationController
 
   def update
     if @post.update(post_params)
-      flash[:notice] = "The post was updated"
-      redirect_to post_path(@post)
+      redirect_to post_path(@post), notice: "The post was updated"
     else
       render :edit
     end
+  end
+
+  def vote
+    Vote.create(voteable: @post, creator: current_user, vote: params[:vote] )
+    redirect_to :back, notice: "Your vote was counted"  # :back returns to previous page
   end
 
   private

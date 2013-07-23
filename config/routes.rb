@@ -7,9 +7,21 @@ PostitTemplate::Application.routes.draw do
 
   get '/register',   to: 'users#new'
 
-  resources :posts, except: :destroy do
-    resources :comments , only: [:create]
+  # con: redundant logic,
+  # pro: no new resource, don't have to pass in type or id
+  resources :posts, except: [:delete] do
+    member do
+      post 'vote'
+      # POST "/posts/2/vote"
+    end
+    resources :comments, only: [:create] do
+      member do
+        post 'vote'
+        # POST "/posts/2/comments/3/vote"
+      end
+    end
   end
+
 
   resources :categories , only:[:new, :create, :show]
 
