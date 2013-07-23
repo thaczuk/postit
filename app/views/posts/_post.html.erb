@@ -9,7 +9,8 @@
       <%= post.description %>
     </p>
     <p>
-      <span class="quiet">posted by</span> <%= link_to post.creator.username, user_path(post.creator) %>
+      <span class="quiet">posted by</span>
+      <%= link_to post.creator.username, user_path(post.creator) %>
       <small> at <%= post.created_at %></small>
     </p>
     <small>

@@ -1,57 +1,54 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update]
-  before_filter :require_user, only: [:new, :create, :edit, :update]
-  before_action :require_creator, only: [:edit, :create]
-
+  before_action :require_user, except: [:show, :index]
+  before_action :set_post, only: [:show, :edit, :update, :vote]
+  before_action :require_creator, only: [:edit, :update]
 
   def index
     @posts = Post.all
   end
 
-  def create
-    @post = Post.new(post_params)
-    @post.creator = current_user
-
-    if @post.save
-      redirect_to @post, notice: 'Post was successfully created'
-    else
-      render action: 'new'
-    end
+  def show
+    @comment = @post.comments.build
   end
 
   def new
     @post = Post.new
   end
 
-  def edit
+  def create
+    @post = Post.new(post_params)
+    @post.creator = current_user
+    if @post.save
+      flash[:notice] = "Your post was created."
+      redirect_to posts_path
+    else
+      render :new
+    end
   end
 
-  def show
-    @post = Post.find(params[:id])
-    @comment =  @post.comments.build
-    @comments = Comment.where(post_id: (params[:id]))
+  def edit
   end
 
   def update
     if @post.update(post_params)
-      redirect_to @post, notice: 'Post was successfully updated.'
+      flash[:notice] = "The post was updated"
+      redirect_to post_path(@post)
     else
-      render action: 'edit'
+      render :edit
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_post
-      @post = Post.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet
-    def post_params
-      params.require(:post).permit(:title, :url, :description)
-    end
+  def set_post
+    @post = Post.find params[:id]
+  end
 
-    def require_creator
-      access_denied unless logged_in? && current_user == @post.creator
-    end
+  def require_creator
+    access_denied unless logged_in? && current_user == @post.creator
+  end
+
+  def post_params
+    params.require(:post).permit!
+  end
 end
