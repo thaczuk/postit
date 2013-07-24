@@ -37,13 +37,18 @@ class PostsController < ApplicationController
   end
 
   def vote
-    if current_user.already_voted?(@post)
-      flash[:error] = "You can only vote once"
-      redirect_to :back
-    else
+    #if current_user.already_voted?(@post)
+     # flash[:error] = "You can only vote once"
+    #  redirect_to :back
+   #else
       Vote.create(voteable: @post, creator: current_user, vote: params[:vote] )
-      redirect_to :back, notice: "Your vote was counted"  # :back returns to previous page
-    end
+      respond_to do |format|
+        format.html do
+          redirect_to :back, notice: "Your vote was counted"  # :back returns to previous page
+        end
+        format.js
+      end
+   # end
   end
 
   private

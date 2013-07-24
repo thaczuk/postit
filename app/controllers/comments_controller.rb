@@ -16,13 +16,18 @@ class CommentsController < ApplicationController
 
 def vote
    @comment = Comment.find(params[:id])
-   if current_user.already_voted?(@comment)
-      flash[:error] = "You can only vote once"
-      redirect_to :back
-  else
+   #if current_user.already_voted?(@comment)
+    #  flash[:error] = "You can only vote once"
+   #   redirect_to :back
+  #else
     Vote.create(voteable: @comment, creator: current_user, vote: params[:vote])
-    redirect_to :back, notice: "You voted."
-  end
+    respond_to do |format|
+        format.html do
+          redirect_to :back, notice: "You voted."
+        end
+        format.js
+    end
+  #end
 end
 
 
