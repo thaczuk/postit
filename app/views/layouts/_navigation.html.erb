@@ -1,8 +1,10 @@
-<ul class="nav">
-  <li><%= link_to "Postit!", root_path, :class => 'brand' %></li>
-  <li><%= link_to "All Posts", posts_path %></li>
-</ul>
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar-inner">
+    <%= link_to "Post-it!", root_path, :class => 'brand nav' %>
+<div class='nav_item'>
+    <%= link_to "All Posts", posts_path, class: 'btn btn-small' %>
 
+  </div>
 <div class='btn-group nav_item'>
   <%= link_to '#', class: 'btn btn-small dropdown-toggle', 'data-toggle' => 'dropdown' do %>
     Categories <span class='caret'></span>
@@ -57,9 +59,13 @@
   </div>
 <% else # logged out%>
   <div class='nav_item'>
-    <%= link_to 'Register', register_path, class: 'btn btn-small btn-success' %>
-  </div>
-  <div class='nav_item'>
-    <%= link_to 'Login', login_path, class: 'btn btn-small' %>
+    <%= form_tag '/login', :class => 'form-search' do %>
+      <%= text_field_tag :username %>
+      <%= password_field_tag :password %>
+      <%= submit_tag "Log in", :class => 'btn btn-small btn-success' %>
+    <% end %>
   </div>
 <% end %>
+
+  </div>
+</div>

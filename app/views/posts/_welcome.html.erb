@@ -1,0 +1,9 @@
+<% if !logged_in? %>
+  <div class="hero-unit">
+    <h1>Welcome to Post-It!</h1>
+    <p>This is my basic <a href="http://www.reddit.com">reddit clone</a> for the <a href="http://www.gotealeaf.com">Tealeaf Academy Ruby on Rails course.</a></p>
+    <p>
+      <%= link_to 'Register', register_path, class: 'btn btn-primary btn-large' %>
+    </p>
+  </div>
+<% end %>
