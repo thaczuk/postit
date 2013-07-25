@@ -53,4 +53,8 @@ class User < ActiveRecord::Base
   def to_param
     self.slug
   end
+
+  def admin?
+    self.role == 'admin'
+  end
 end
