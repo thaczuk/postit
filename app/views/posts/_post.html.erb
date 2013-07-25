@@ -6,7 +6,7 @@
       <% end %>
       <br>
     <% end %>
-    <span id="post_<%= post.id %>_votes">
+    <span id="post_<%= post.to_param %>_votes">
       <%= pluralize(post.total_votes, 'vote') %>
     </span>
     <% if logged_in? %>
