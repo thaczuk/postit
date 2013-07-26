@@ -14,6 +14,10 @@ class ApplicationController < ActionController::Base
     !!current_user
   end
 
+  def user_voted?(obj)
+    obj.votes.exists?(:user_id => current_user)
+  end
+
   def require_user
     unless logged_in?
       flash[:error] = "You must be logged in to do that."
