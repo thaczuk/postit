@@ -58,6 +58,7 @@
     </ul>
   </div>
 <% else # logged out%>
+
   <div class='nav_item'>
     <%= form_tag '/login', :class => 'form-search' do %>
       <%= text_field_tag :username %>
@@ -65,6 +66,9 @@
       <%= submit_tag "Log in", :class => 'btn btn-small btn-success' %>
     <% end %>
   </div>
+  <ul class='nav pull-right'>
+    <li><%= link_to 'About', about_path %></li>
+  </ul>
 <% end %>
 
   </div>

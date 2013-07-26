@@ -7,6 +7,8 @@ PostitTemplate::Application.routes.draw do
 
   get '/register',   to: 'users#new'
 
+  get '/about', to: 'static_pages#about'
+
   # con: redundant logic,
   # pro: no new resource, don't have to pass in type or id
   resources :posts, except: [:delete] do
