@@ -3,7 +3,7 @@ module Slugable
     self.slug
   end
 
-  def generate_slug(model, var)  #Post, self.title
+  def generate_slug(model, var)  #Model, self.variable
     str = to_slug(var)
     count = 2
     obj = model.where(slug: str).first
