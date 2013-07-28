@@ -122,7 +122,7 @@ GEM
     uglifier (2.1.1)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
-    voteable-gnt (0.0.0)
+    voteable-gnt (0.0.1)
 
 PLATFORMS
   ruby
@@ -143,4 +143,4 @@ DEPENDENCIES
   sqlite3
   turbolinks
   uglifier (>= 1.3.0)
-  voteable-gnt
+  voteable-gnt (~> 0.0.1)
